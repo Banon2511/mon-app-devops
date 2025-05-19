@@ -1,0 +1,20 @@
+name: Build and Deploy
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t mon-app-python .
+
+      - name: Log in to Docker Hub (optionnel)
+        if: github.ref == 'refs/heads/main'
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u votre-user --password-stdin
+
+      - name: Push to Docker Hub (optionnel)
+        if: github.ref == 'refs/heads/main'
+        run: docker push votre-user/mon-app-python
