@@ -9,12 +9,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t mon-app-python .
+        run: docker build -t someonecss/mon-app-python .
 
-      - name: Log in to Docker Hub (optionnel)
+      - name: Log in to Docker Hub
         if: github.ref == 'refs/heads/main'
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u votre-user --password-stdin
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u someonecss --password-stdin
 
-      - name: Push to Docker Hub (optionnel)
+      - name: Push to Docker Hub
         if: github.ref == 'refs/heads/main'
-        run: docker push votre-user/mon-app-python
+        run: docker push someonecss/mon-app-python
